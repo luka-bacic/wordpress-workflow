@@ -1,9 +1,8 @@
 # Workflow for WordPress themes
----
 This file should provide sufficient instructions on how to get the workflow started.
 
 ## Why you should use this workflow
-This workflow uses [gulp](https://gulpjs.com/) to automate tasks,such as: 
+This workflow uses [gulp](https://gulpjs.com/) to automate tasks, such as: 
  - automatically injects CSS changes into the browser without the need to refresh the page
  - automatically refreshes the page if PHP or JS files are modified 
  - compiling [SCSS](https://sass-lang.com/) to CSS
@@ -32,7 +31,7 @@ $ npm -v
 6.13.4
 ```
 
-#Installing
+##Installing
 
 1. Open a terminal and navigate to your WordPress theme's folder. Example: 
 ```
@@ -50,7 +49,7 @@ $ npm install
 ```
 This will install all the required dependencies to enable the workflow. It will take several minutes. When it finishes a new folder will appear called `node_modules`.
 
-#Folder Structure
+##Folder Structure
 
 For the sake of everything making sense, lets look how the default folder structure is organized:
 
@@ -79,7 +78,13 @@ theme_folder/
 |-- index.php
 `-- style.css
 ```
-Lets break it down!
+###Folder structure explained
+
+There are 2 main subfolders in the `theme_folder`.
+1. For development purposes: `theme_folder/assets/`
+2. Production files: `theme_folder/dist/`
+
+####Source/Development files
 
 `assets/` is the folder where you will work in. It has 4 subdirectories. All subdirectories have an underscore before their name so you know that these files are for developing purposes, and not ready to be served for production. We will go over them in a specific order, to make more sense.
 
@@ -87,6 +92,39 @@ Lets break it down!
 
 2. `_css/` - This folder should contain all CSS files. Your SCSS code will compile to this folder! That's why there is a file called `theme-style.css`. If your are using any CSS library, make sure to copy the library's CSS into this folder (like Bootstrap, Tailwind CSS, etc.). When you run the command `gulp`, gulp will combine all of the CSS files located in this directory into one big minified CSS file. This is done so fewer HTTP requests are called when a website is loading, which increases its loading speed.
 
-3. `_js/` - This folder contains all of the JavaScript your site needs. Whether its a library like jQuery or just some custom JS you wrote, you place it here. However, there is a structure inside of it:
-    - `libraries` - Here you copy libraries you want to use, like jQuery, bootstrap, and other libraries
-    - `modules` - Here is the custom JS you write, but split into modules to increase modularity and readability. For example: you want to create a module to switch
+3. `_js/` - This folder contains all of the JavaScript your site needs. Whether its a library like jQuery or just some custom JS you wrote, you place it here. However, there is a structure to be followed:
+    - `libraries/` - Here you copy libraries you want to use, like jQuery, bootstrap, and other libraries
+    - `modules/` - Here is the custom JS you write, but split into modules to increase modularity and readability. For example: you want to create a module to alert something to the user. You would create a new file `alert.js`, create a new class, export it as default, and add a constructor which contains your code:
+
+    ```
+    "use strict";
+
+    export default class Alert {
+        constructor() {
+            alert("Hello world!");
+        }
+    }
+    ```
+    - `main.js` - The main JS file which should power your application. This file should include all of your modules. To insert our `alert.js` module from the previous example, we can do something like this. (this example assumes you are using jQuery)
+    
+    ```
+    "use strict";
+
+    import Alert from './modules/alert.js';
+
+    $(document).ready(function() {
+        new Alert();
+    });
+    ```
+
+4. `_img/` - This folder should contain all of your images - JPG, PNG, GIF and SVG. You can further organize the images in subfolders, the folder structure will be copied in the production folder when you run `gulp`
+
+
+####Production files
+`dist` is the folder where production ready files are stored. If you are going to display an image in one of your WordPress template files, include a stylesheet or include JavaScript - you should reference them for here.
+
+The reason for this is:
+ - the images are compressed and optimized for web usage
+ - the stylesheets are minified, vendor prefixed for cross browser compability, and combined into 1 file for faster loading
+ - the JavaScript is compiled so olderbrowsers can understand it, and combined into 1 file for faster loading. It is also "browserified" so all of the JS is in the browser
+ 
