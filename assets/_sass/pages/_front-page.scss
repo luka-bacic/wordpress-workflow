@@ -1,0 +1,120 @@
+// Front Page
+// ------------
+
+.home {
+  main {
+    min-height: 100vh;
+    // background: linear-gradient(0deg, rgba(40, 48, 65, 0.75), rgba(40, 48, 65, 0.75)), url("../images/background.png"), #C4C4C4;
+    background: url("../images/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 100%;
+    background-attachment: fixed;
+
+    section {
+      @include flexbox();
+      @include flex-direction(column);
+      @include justify-content(center);
+      @include align-items(center);
+
+      &.hero {
+        min-height: calc(100vh - #{$header-height});
+        height: calc(100vh - #{$header-height} - 1px); // for IE
+
+        h1 {
+          margin: 25px 0;
+          font-size: 38px;
+          letter-spacing: -0.02em;
+
+          @include media-breakpoint-only(sm) {
+            font-size: 56px; 
+          }
+
+          @include media-breakpoint-up(md) {
+            font-size: 72px;
+            letter-spacing: -0.01em;
+          }
+        }
+
+        p {
+          margin: 49px 0 50px;
+        }
+
+        a {
+          margin-bottom: 15px;
+
+          @include media-breakpoint-up(md) {
+            // margin-bottom: 0;
+          }
+        }
+      }
+      &.activities {
+        padding: 60px;
+
+        @include media-breakpoint-up(md) {
+          padding: 125px;
+        }
+
+        h2 {
+          margin-bottom: 20px;
+        }
+
+        a {
+          &.button {
+            margin: 80px 0 0;
+          }
+        }
+      }
+
+      &.about-us {
+        padding: 30px 0 30px;
+
+        @include media-breakpoint-up(md) {
+          padding: 130px 0 150px;
+        }
+
+        h2 {
+          margin: 45px 0;
+          text-align: left;
+
+          @include media-breakpoint-up(lg) {
+            margin: 0 0 45px; 
+          }
+        }
+
+        p {
+          margin-bottom: 45px;
+        }
+      }
+
+      &.projects {
+        padding: 60px 0;
+
+        @include media-breakpoint-up(md) {
+          padding: 90px 0 170px;
+        }
+
+        h2 {
+          margin-bottom: 62px;
+        }
+      }
+
+      &.blog-section {
+        padding: 60px 0;
+
+        @include media-breakpoint-up(md) {
+          padding: 65px 0 90px;
+        }
+
+        h2 {
+          margin-bottom: 25px;
+        }
+
+        p {
+          margin-bottom: 60px;
+        }
+      }
+    }
+  }
+}
+    

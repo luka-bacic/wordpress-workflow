@@ -1,0 +1,93 @@
+// Project card
+// ------------
+
+
+.project-card {
+  @include flexbox();
+  @include align-items(stretch);
+  margin: 30px 0 0;
+  min-height: 180px;
+  height: 179px; // for IE
+  background-color: $dirty-grey;
+  border-radius: $border-radius-project;
+
+  > a {
+    @include flexbox();
+    @include align-items(flex-end);
+    padding: 20px;
+    width: 100%;
+    text-decoration: none;
+
+    .info {
+      @include flexbox();
+      @include flex-direction(column);
+      @include flex-grow(2);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+
+      .project-taxonomy {
+        margin-bottom: 6px;
+
+        ul {
+          @include flexbox();
+          @include flex-direction(column);
+          @include flex-wrap(wrap);
+          @include justify-content(flex-start);
+          margin: 0;
+          padding: 0;
+          list-style: none;
+
+          li {
+            @include flex(1 1 auto);
+            margin: 3px 0 0;
+            color: $light-blue;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+
+            &:first-of-type {
+              margin-left: 0;
+            }
+
+            &:last-of-type {
+              margin-right: 0;
+            }
+          }
+        }
+      }
+
+      .project-title {
+        margin-bottom: 10px;
+        color: $darkish-grey;
+        font-size: 24px;
+        font-weight: 500;
+      }
+
+      .publication-date {
+        color: $darkish-grey;
+        font-size: 12px;
+        font-weight: 300;
+        text-transform: uppercase;
+      }
+    }
+
+    .arrow {
+      margin: 0 20px 5px 0;
+      @include transform(translateX(0));
+      @include transition(transform $speed-slower);
+
+      svg {
+        path {
+          fill: $darkish-grey;
+        }
+      }
+    }
+
+    &:hover,
+    &:focus {
+      .arrow {
+        @include transform(translateX(20px));
+      }
+    }
+  }
+}

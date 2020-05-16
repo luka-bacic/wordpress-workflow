@@ -1,0 +1,101 @@
+// Project Nav Tabs
+// ------------
+
+.nav-project-wrapper {
+  margin-bottom: 20px;
+  width: 100%;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: 50px;
+  }
+
+  .nav {
+    border-bottom: 1px solid $pr-nav;
+
+    li {
+      margin: 23px auto;
+      @include position(relative, $bottom: -1px);
+
+      @include media-breakpoint-up(sm) {
+        margin: 23px 55px; 
+      }
+      
+      @include media-breakpoint-up(lg) {
+        margin: 23px 85px; 
+      }
+
+      a {
+        padding: 4px 5px;
+        position: relative;
+        color: $grey;
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        text-decoration: none;
+
+        &::before {
+          content: '';
+          @include position(absolute, $right: -20%, $bottom: -19px, $left: -20%);
+          @include transition(transform 0.3s cubic-bezier(.17,.84,.44,1));
+        }
+
+        &.active {
+          &::before {
+            border-bottom: 3px solid $yellow;
+          }
+        }
+      }
+
+      // Transition of the yellow underline moving
+      &:first-of-type {
+        a {
+          &::before {
+            // mobile
+            @include transform(translateX(unset));
+
+            // tablet & laptop
+            @include media-breakpoint-up(sm) {
+              @include transform(translateX(210px));
+            }
+
+            // desktop
+            @include media-breakpoint-up(lg) {
+              @include transform(translateX(270px));
+            }
+          }
+
+          &.active {
+            &::before {
+              @include transform(translateX(0));
+            }
+          }
+        }
+      }
+
+      &:last-of-type {
+        a {
+          &::before {
+            // mobile
+            @include transform(translateX(unset));
+
+            // tablet and laptops
+            @include media-breakpoint-up(sm) {
+              @include transform(translateX(-210px));
+            }
+
+            // desktops
+            @include media-breakpoint-up(lg) {
+              @include transform(translateX(-270px));
+            }
+          }
+          &.active {
+            &::before {
+              @include transform(translateX(0));
+            }
+          }
+        }
+      }
+    }
+  }
+}

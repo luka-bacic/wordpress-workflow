@@ -1,0 +1,106 @@
+// Member (Employee) Cards on About Us Page
+// ------------
+
+// Transition speed for moving up/down
+$tr-vert: 0.25s;
+// Transition speed for opacity
+$tr-opacity: 0.2s;
+// Transition delay for opacity
+$op-delay: 0.3s;
+
+.person-card {
+  @include flexbox();
+  @include flex-direction(column);
+  @include justify-content(flex-end);
+  margin: 0 auto 30px;
+  padding: 25px 20px;
+  overflow: hidden;
+  max-width: 260px;
+  height: 320px;
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.6) 0%, rgba(255, 255, 255, 0) 100%), #C4C4C4;
+
+  .name-title {
+    h4 {
+      margin-bottom: 5px;
+      color: $white;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    h5 {
+      margin-bottom: 0;
+      color: $white;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.2;
+    }
+  }
+  .social {
+    @include flexbox();
+    @include justify-content(space-between);
+    @include justify-content(space-evenly);
+
+    @include align-items(center);
+    margin: 25px 0 -60px;
+    @include transition(margin $tr-vert cubic-bezier(.6,-0.28,.74,.05));
+    width: 100%;
+
+    a {
+      text-decoration: none;
+
+      svg {
+        fill: $white;
+        opacity: 0;
+        @include transition(opacity $tr-opacity);
+        transition-delay: ($op-delay -0.05);
+      }
+    }
+
+    span {
+      opacity: 0;
+      @include transition(opacity $tr-opacity);
+      transition-delay: ($op-delay -0.05);
+    }
+
+    .seperator {
+      color: $white;
+    }
+  }
+
+  &:hover {
+    .social {
+      margin: 15px 0 0;
+
+      a {
+        svg {
+          opacity: 1;
+          transition-delay: $op-delay;
+        }
+      }
+
+      span {
+        opacity: 1;
+        transition-delay: $op-delay;
+      }
+    }
+  }
+}
+
+// Individual employees
+#john {
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.6) 0%, rgba(255, 255, 255, 0) 100%), url('../images/employees/John.png'), #C4C4C4;
+}
+
+#jane {
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.6) 0%, rgba(255, 255, 255, 0) 100%), url('../images/employees/Jane.png'), #C4C4C4;
+}
+
+#sarah {
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.6) 0%, rgba(255, 255, 255, 0) 100%), url('../images/employees/Sarah.png'), #C4C4C4;
+}
+
+#liz {
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.6) 0%, rgba(255, 255, 255, 0) 100%), url('../images/employees/Liz.png'), #C4C4C4;
+}
+

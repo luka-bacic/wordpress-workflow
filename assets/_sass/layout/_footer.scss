@@ -1,0 +1,149 @@
+// Footer
+// ------------
+
+footer {
+  padding: 30px 0 0;
+  .custom-underline {
+    h3 {
+      margin: 0 auto 55px;
+      @include media-breakpoint-up(lg) {
+        margin: 60px auto 115px;
+      }
+    }
+  }
+  .info {
+    @include flexbox();
+    .icon {
+      width: 60px;
+      @include media-breakpoint-up(lg) {
+        width: 90px; 
+      }
+      i {
+        font-size: 45px;
+      }
+    }
+    .details {
+      h4 {
+        margin-bottom: 13px;
+      }
+      p {
+        margin: 0 0 9px;
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+  hr {
+    margin: 29px auto 29px 0;
+    height: 1px;
+    @include media-breakpoint-up(lg) {
+      width: 85%;
+    }
+  }
+  form {
+    input,
+    textarea {
+      padding: 15px 20px;
+      background-color: $light-grey;
+      border: 1px solid $light-grey;
+      border-radius: $border-radius;
+      font-size: 16px;
+      line-height: 1.6;
+      width: 100%;
+      @include media-breakpoint-up(xl) {
+        padding: 15px 30px; 
+      }
+      &:focus {
+        background-color: $light-grey;
+        border-color: $light-grey;
+        @include box-shadow($br: 0, $sr: .2rem, $color: $black, $opacity: .25);
+      }
+      &::placeholder {
+        color: $black;
+      }
+    }
+    input {
+      height: 55px;
+    }
+    textarea {
+      margin: 20px 0 0;
+      resize: none;
+    }
+    input[type=text] {
+      margin: 0;
+      width: 100%;
+      @include media-breakpoint-only(md) {
+        margin-right: 20px;
+        width: calc(100% + 10px);
+      }
+      @include media-breakpoint-up(xl) {
+        margin-right: 20px;
+        width: calc(100% + 10px);
+      }
+    }
+    input[type=email] {
+      margin: 20px 0 0;
+      @include media-breakpoint-only(md) {
+        margin: 0;
+      }
+      @include media-breakpoint-up(xl) {
+        margin: 0;
+      }
+    }
+    input[type=submit] {
+      margin: 20px 0 15px;
+      padding: 0;
+      width: 100%;
+      background-color: $blue;
+      border-color: $blue;
+      border-radius: $border-radius-btn-big;
+      color: $white;
+      font-weight: bold;
+      text-transform: uppercase;
+      @include transition(background-color 0.3s);
+
+      @include media-breakpoint-up(lg) {
+        margin-bottom: 100px;
+        width: calc(100% + 10px);
+      }
+
+      &:hover,
+      &:focus {
+        background-color: $darker-blue;
+      }
+    }
+    .wpcf7-not-valid-tip {
+      margin-bottom: -5px;
+      padding: 5px 0 0;
+    }
+    .wpcf7-response-output {
+      display: none !important;
+    }
+  }
+  .copy {
+    padding: 28px;
+    height: 82px;
+    background-color: $grey;
+    text-align: center;
+    span {
+      color: $white;
+      font-size: 14px;
+      line-height: 1.9;
+    }
+  }
+}
+
+.single {
+  footer {
+    padding-top: 0;
+  }
+}
+
+// intersection observer div, visually hidden
+.x-obs {
+  visibility: hidden;
+  position: absolute;
+  top: calc(100vh + 100px);
+  height: calc(100% - 100vh - #{$header-height});
+}
