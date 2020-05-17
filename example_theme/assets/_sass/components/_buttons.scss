@@ -1,9 +1,9 @@
 // Custom Buttons
 // -------------
 
-// Usage: add the classes "button button-color" to the desired element,
+// Usage: add the class "button-color" to the desired element,
 // where "color" is one of the defined colors
-// Example: <button class="button button-purple">Click me</button>
+// Example: <button class="button-purple">Click me</button>
 
 .button {
   display: inline-block;
@@ -14,27 +14,27 @@
   line-height: 1.6;
   border-style: solid;
   border-width: 1px;
-  border-radius: $border-radius-btn-small;
-  @include user-select(none);
-  @include transition(color 0.4s, background-color 0.4s, border-color 0.4s, box-shadow 0.4s);
-  &:hover,
-  &:active,
-  &:focus {
-    @include transition(color 0.35s, background-color 0.35s, border-color 0.35s, box-shadow 0.35s);
-  }
+  border-radius: 4px;
+  user-select: none;
+  transition:
+    color 0.4s,
+    background-color 0.4s,
+    border-color 0.4s;
+
   &:hover {
     text-decoration: none;
   }
   
-  // Blue
-  &.button-blue {
-    color: $white;
+  // Blue Button
+  &-blue {
+    color: #fff;
     background-color: $blue;
     border-color: $blue;
+
     &:hover,
     &:active,
     &:focus {
-      color: $white;
+      color: #fff;
       background-color: $darker-blue;
       border-color: $darker-blue;
     }
