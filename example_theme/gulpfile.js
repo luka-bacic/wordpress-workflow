@@ -1,4 +1,4 @@
-
+var serverUrl = 'REPLACE_ME';
 var root = './';
 var devFiles = 'prototype'; // directory where the dev files are contained
 var prodFiles = 'dist'; // directory of production ready files
@@ -97,7 +97,7 @@ gulp.task('combineJsLibraries', function() {
 // watch task, ran with `gulp` 
 gulp.task('serve', gulp.series(['sass', 'combineCss', 'images', 'browserify', 'combineJsLibraries'], function() {
   browserSync.init({
-    proxy: 'http://127.0.0.1:8080/ving/sr/'
+    proxy: serverUrl
   });
 
   gulp.watch(src.sassSrc, gulp.series('sass'));
