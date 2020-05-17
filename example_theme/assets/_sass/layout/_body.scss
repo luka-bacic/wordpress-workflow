@@ -2,14 +2,5 @@
 // ------------
 
 body {
-  @include flexbox();
-  @include flex-direction(column);
-  @include justify-content(space-between);
   min-height: 100vh;
-  position: relative;
-
-  main {
-    margin: -$header-height 0 0;
-    padding: ($header-height * 2) 0 0;
-  }
 }

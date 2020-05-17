@@ -1,6 +1,14 @@
-@import 'utils/global';
-@import 'layout/global';
+/*
+ * This file usually just imports
+ * all the other scss partials.
+ * Take a look at the 7-1 pattern:
+ * https://sass-guidelin.es/#the-7-1-pattern
+ *
+**/
+
+@import 'utils/global'; // You want to import this first, so you can use variables and mixins in other files
 @import 'base/global';
 @import 'components/global';
+@import 'layout/global';
 @import 'pages/global';
  
