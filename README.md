@@ -31,7 +31,7 @@ $ npm -v
 6.13.4
 ```
 
-##Installing
+## Installing
 
 1. Open a terminal and navigate to your WordPress theme's folder. Example: 
 ```
@@ -49,12 +49,12 @@ $ npm install
 ```
 This will install all the required dependencies to enable the workflow. It will take several minutes. When it finishes a new folder will appear called `node_modules`.
 
-##Folder Structure
+## Folder Structure
 
 For the sake of everything making sense, lets look how the default folder structure is organized:
 
 ```
-theme_folder/
+example_theme/
 |-- assets/
 |   |-- _css/
 |   |   |-- bootstrap.min.css
@@ -82,13 +82,13 @@ theme_folder/
 |-- functions.php
 `-- index.php
 ```
-###Folder structure explained
+### Folder structure explained
 
-There are 2 main subfolders in the `theme_folder`.
-1. For development purposes: `theme_folder/assets/`
-2. Production files: `theme_folder/dist/`
+There are 2 main subfolders in the `example_theme`.
+1. For development purposes: `example_theme/assets/`
+2. Production files: `example_theme/dist/`
 
-####Source/Development files
+#### Source/Development files
 
 `assets/` is the folder where you will work in. It has 4 subdirectories. All subdirectories have an underscore before their name so you know that these files are for developing purposes, and not ready to be served for production. We will go over them in a specific order, to make more sense.
 
@@ -124,7 +124,7 @@ There are 2 main subfolders in the `theme_folder`.
 4. `_img/` - This folder should contain all of your images - JPG, PNG, GIF and SVG. You can further organize the images in subfolders, the folder structure will be copied in the production folder when you run `gulp`
 
 
-####Production files
+#### Production files
 `dist` is the folder where production ready files are stored. If you are going to display an image in one of your WordPress template files, include a stylesheet or a JavaScript file - you should reference them for here. After gulp processes the files in the `assets` folder, the files in `dist` are:
  - compressed and optimized images
  - minified and vendor prefixed stylesheets, combined into 1 file
@@ -139,13 +139,13 @@ The subdirectories are self explanatory:
     - `libraries.min.js` - all files located in `assets/_js/libraries/` will be combined in this one file.
     - `main.js` - your custom JS code will be here, including all of the modules you created under `assets/_js/modules/` (provided you imported them in `assets/_js/main.js`).
     
-####Node modules
+#### Node modules
 This folder will automatically be created after you run `npm install`. You don't need to do anything with this, and you don't delete it if you want to use gulp.
 
-###WordPress files
+### WordPress files
 The 2 files every theme must have are `index.php` and `style.css`, and a very basic version of them is included in this example theme. However, if you want to make a custom theme you probably want to add the other [template files](https://developer.wordpress.org/themes/basics/template-hierarchy/).
 
-####Adding the stylesheet and JavaScript files
+#### Adding the stylesheet and JavaScript files
 To include the production stylesheet and JavaScript files, you need to hook into the [wp_enqueue_scripts](https://developer.wordpress.org/reference/hooks/wp_enqueue_scripts/) WordPress hook in your `functions.php`, like so:
 
 ```
