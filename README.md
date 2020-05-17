@@ -55,7 +55,15 @@ For the sake of everything making sense, lets look how the default folder struct
 
 ```
 example_theme/
-|-- assets/
+|-- dist/
+|   |-- css/
+|   |   `-- all-css.min.css
+|   |-- images/
+|   `-- js/
+|       |-- libraries.min.js
+|       `-- main.js
+|-- node_modules/
+|-- prototype/
 |   |-- _css/
 |   |   |-- bootstrap.min.css
 |   |   `-- theme-style.css
@@ -66,14 +74,6 @@ example_theme/
 |   |   `-- main.js
 |   `-- _sass/
 |       `-- theme-style.scss
-|-- dist/
-|   |-- css/
-|   |   `-- all-css.min.css
-|   |-- images/
-|   `-- js/
-|       |-- libraries.min.js
-|       `-- main.js
-|-- node_modules/
 |
 |-- style.css
 |-- .gitignore
@@ -86,12 +86,12 @@ example_theme/
 ### Folder structure explained
 
 There are 2 main subfolders in the `example_theme`.
-1. For development purposes: `example_theme/assets/`
+1. For development purposes: `example_theme/prototype/`
 2. Production files: `example_theme/dist/`
 
 #### Source/Development files
 
-`assets/` is the folder where you will work in. It has 4 subdirectories. All subdirectories have an underscore before their name so you know that these files are for developing purposes, and not ready to be served for production. We will go over them in a specific order, to make more sense.
+`prototype/` is the folder where you will work in. It has 4 subdirectories. All subdirectories have an underscore before their name so you know that these files are for developing purposes, and not ready to be served for production. We will go over them in a specific order, to make more sense.
 
 1. `_sass/` - This folder **needs** to have a file called `theme-style.scss`. You can further organize your SCSS files to whatever convention you prefer (e.g. [7-1 Pattern](https://sass-guidelin.es/#the-7-1-pattern)), but make sure the SCSS compiles to this one file. You can change the name if you like, but make sure to change it in the `gulpfile.js` too!
 
@@ -126,7 +126,7 @@ There are 2 main subfolders in the `example_theme`.
 
 
 #### Production files
-`dist` is the folder where production ready files are stored. If you are going to display an image in one of your WordPress template files, include a stylesheet or a JavaScript file - you should reference them for here. After gulp processes the files in the `assets` folder, the files in `dist` are:
+`dist` is the folder where production ready files are stored. If you are going to display an image in one of your WordPress template files, include a stylesheet or a JavaScript file - you should reference them for here. After gulp processes the files in the `prototype` folder, the files in `dist` are:
  - compressed and optimized images
  - minified and vendor prefixed stylesheets, combined into 1 file
  - compiled scripts so olderbrowsers can understand it, and combined into 2 files for faster loading. It is also [browserified](http://browserify.org/) so all of the JS is in the browser.
@@ -137,8 +137,8 @@ The subdirectories are self explanatory:
 2. `images/` - all your images will be copied here. If you further organized them in subdirectories, it will be copied over. There is an example below on how to include these images in your template files or stylesheets.
 
 3. `js/` - you will have 2 files here. There is an example below on how to include them in your `functions.php`.
-    - `libraries.min.js` - all files located in `assets/_js/libraries/` will be combined in this one file.
-    - `main.js` - your custom JS code will be here, including all of the modules you created under `assets/_js/modules/` (provided you imported them in `assets/_js/main.js`).
+    - `libraries.min.js` - all files located in `prototype/_js/libraries/` will be combined in this one file.
+    - `main.js` - your custom JS code will be here, including all of the modules you created under `prototype/_js/modules/` (provided you imported them in `prototype/_js/main.js`).
     
 #### Node modules
 This folder will automatically be created after you run `npm install`. You don't need to do anything with this, and you don't delete it if you want to use gulp.
@@ -163,7 +163,7 @@ function resources() {
 add_action('wp_enqueue_scripts', 'resources');
 ```
 
-The important part here is to reference these files from the `dist/` directory, and **not** the `assets/` directory!
+The important part here is to reference these files from the `dist/` directory, and **not** the `prototype/` directory!
 
 Besides adding your scripts from `dist/`, it is also crucial to add the attribute `type="module"` to the main script being included. Otherwise, you will get weird errors in the console that are hard to debug. We do that in `functions.php` like this:
 
@@ -181,3 +181,12 @@ function add_type_attribute($tag, $handle, $src) {
 add_filter('script_loader_tag', 'add_type_attribute' , 10, 3);
 ```
 
+# Changing default file and folder names
+If you want to change the default file names, the folder structure, or remove some tasks from the default task, feel free to do so. However, you need to update all the new names and file paths in `gulpfile.js`.
+
+At the beginning of `gulpfile.js` you will find 4 variables which you can modify to your needs.
+
+- `root` - if you wish to move the directory where gulp is located, you change this file so every other file reference gets updated.
+- `devFiles` - the directory where the source files are located.
+- `prodFiles` - the directory where the production ready files are located.
+- `src` - an object containing file paths for SCSS, CSS, JS, images and PHP files.
