@@ -3,6 +3,13 @@ var root = './';
 var devFiles = 'prototype'; // directory where the dev files are contained
 var prodFiles = 'dist'; // directory of production ready files
 
+// File names
+var fileNames = {
+  css: 'main.min.css',             // The main CSS file (which includes your CSS + libraries)
+  customJs: 'main.js',             // JS file containing your custom JS with modules
+  jsLibraries: 'libraries.min.js', // All of the JS libraries combined into one, minified
+};
+
 // Modify the file paths here if needed
 var src = {
   sassSrc:  root + devFiles + '/_sass/**/*.scss',       // location of all SCSS source files
@@ -17,6 +24,7 @@ var src = {
   jsDest:   root + prodFiles + '/js',                   // location of where the production ready JS files will be placed
   php:      root + '**/*.php',                          // location of all PHP files which will be watched for page reloads
 };
+
 
 // Don't touch these
 var gulp         = require('gulp'),
@@ -51,7 +59,7 @@ gulp.task('sass', function() {
 gulp.task('combineCss', function() {
   return gulp.src(src.cssSrc)
     .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(concat('all-css.min.css'))
+    .pipe(concat(fileNames.css))
     .pipe(gulp.dest(src.cssDest));
 });
 
@@ -74,7 +82,7 @@ gulp.task('browserify', function() {
     }))
     .bundle()
     //Pass desired output filename to vinyl-source-stream
-    .pipe(source('main.js'))
+    .pipe(source(fileNames.customJs))
     // Start piping stream to tasks!
     .pipe(gulp.dest(src.jsDest));
 });
@@ -82,7 +90,7 @@ gulp.task('browserify', function() {
 // Combine all js libraries located in JS source folder/libraries
 gulp.task('combineJsLibraries', function() {
   return gulp.src(src.jsLib)
-    .pipe(concat('libraries.min.js'))
+    .pipe(concat(fileNames.jsLibraries))
     .pipe(gulp.dest(src.jsDest))
 });
 

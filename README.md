@@ -189,4 +189,5 @@ At the beginning of `gulpfile.js` you will find 4 variables which you can modify
 - `root` - if you wish to move the directory where gulp is located, you change this file so every other file reference gets updated.
 - `devFiles` - the directory where the source files are located.
 - `prodFiles` - the directory where the production ready files are located.
+- `fileNames` - an object containing file names when gulp outputs the production files
 - `src` - an object containing file paths for SCSS, CSS, JS, images and PHP files.
