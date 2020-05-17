@@ -1,21 +1,21 @@
 
 var root = './';
-var devFiles = 'assets'; // directory where the dev files are contained
+var devFiles = 'prototype'; // directory where the dev files are contained
 var prodFiles = 'dist'; // directory of production ready files
 
 // Modify the file paths here if needed
 var src = {
-  sassSrc: root + devFiles + '/_sass/**/*.scss',
-  sassDest:  root + devFiles + '/_css',
-  cssSrc: root + devFiles + '/_css/**/*.css',
-  cssDest: root + prodFiles + '/css',
-  imgSrc: root + devFiles + '/_img/**/*',
-  imgDest: root + prodFiles + '/images',
-  jsWatch:   root + devFiles + '/_js/**/*.js',
-  jsSrc: root + devFiles + '/_js/main.js',
-  jsLib: root + devFiles + '/_js/libraries/**/*.js',
-  jsDest:  root + prodFiles + '/js',
-  php:  root + '**/*.php',
+  sassSrc:  root + devFiles + '/_sass/**/*.scss',       // location of all SCSS source files
+  sassDest: root + devFiles + '/_css',                  // location where the SCSS files will be compiled into 1 CSS file
+  cssSrc:   root + devFiles + '/_css/**/*.css',         // location of all CSS files
+  cssDest:  root + prodFiles + '/css',                  // location where the production CSS file will be placed
+  imgSrc:   root + devFiles + '/_img/**/*',             // location of all unoptimized images
+  imgDest:  root + prodFiles + '/images',               // location of where the optimized images will be placed
+  jsWatch:  root + devFiles + '/_js/**/*.js',           // location of all JS files which will be watched for page reloads
+  jsSrc:    root + devFiles + '/_js/main.js',           // location of the main JS file which includes all modules
+  jsLib:    root + devFiles + '/_js/libraries/**/*.js', // location of all the JS libraries you use (like jQuery)
+  jsDest:   root + prodFiles + '/js',                   // location of where the production ready JS files will be placed
+  php:      root + '**/*.php',                          // location of all PHP files which will be watched for page reloads
 };
 
 // Don't touch these
