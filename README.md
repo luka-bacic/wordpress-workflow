@@ -75,8 +75,12 @@ theme_folder/
 |       `-- main.js
 |-- node_modules/
 |
-|-- index.php
-`-- style.css
+|-- style.css
+|-- gulpfile.js
+|-- package.json
+|-- package-lock.json
+|-- functions.php
+`-- index.php
 ```
 ###Folder structure explained
 
@@ -93,7 +97,7 @@ There are 2 main subfolders in the `theme_folder`.
 2. `_css/` - This folder should contain all CSS files. Your SCSS code will compile to this folder! That's why there is a file called `theme-style.css`. If your are using any CSS library, make sure to copy the library's CSS into this folder (like Bootstrap, Tailwind CSS, etc.). When you run the command `gulp`, gulp will combine all of the CSS files located in this directory into one big minified CSS file. This is done so fewer HTTP requests are called when a website is loading, which increases its loading speed.
 
 3. `_js/` - This folder contains all of the JavaScript your site needs. Whether its a library like jQuery or just some custom JS you wrote, you place it here. However, there is a structure to be followed:
-    - `libraries/` - Here you copy libraries you want to use, like jQuery, bootstrap, and other libraries
+    - `libraries/` - Here you copy libraries you want to use, like jQuery, Bootstrap, and other libraries.
     - `modules/` - Here is the custom JS you write, but split into modules to increase modularity and readability. For example: you want to create a module to alert something to the user. You would create a new file `alert.js`, create a new class, export it as default, and add a constructor which contains your code:
 
     ```
@@ -121,10 +125,41 @@ There are 2 main subfolders in the `theme_folder`.
 
 
 ####Production files
-`dist` is the folder where production ready files are stored. If you are going to display an image in one of your WordPress template files, include a stylesheet or include JavaScript - you should reference them for here.
+`dist` is the folder where production ready files are stored. If you are going to display an image in one of your WordPress template files, include a stylesheet or a JavaScript file - you should reference them for here. After gulp processes the files in the `assets` folder, the files in `dist` are:
+ - compressed and optimized images
+ - minified and vendor prefixed stylesheets, combined into 1 file
+ - compiled scripts so olderbrowsers can understand it, and combined into 2 files for faster loading. It is also [browserified](http://browserify.org/) so all of the JS is in the browser.
 
-The reason for this is:
- - the images are compressed and optimized for web usage
- - the stylesheets are minified, vendor prefixed for cross browser compability, and combined into 1 file for faster loading
- - the JavaScript is compiled so olderbrowsers can understand it, and combined into 1 file for faster loading. It is also "browserified" so all of the JS is in the browser
- 
+The subdirectories are self explanatory:
+1. `css/` - there will be one file, called `all-css.min.css`. You enqueue this stylesheet in your `functions.php` file. There is an example below on how to do this.
+
+2. `images/` - all your images will be copied here. If you further organized them in subdirectories, it will be copied over. There is an example below on how to include these images in your template files or stylesheets.
+
+3. `js/` - you will have 2 files here. There is an example below on how to include them in your `functions.php`.
+    - `libraries.min.js` - all files located in `assets/_js/libraries/` will be combined in this one file.
+    - `main.js` - your custom JS code will be here, including all of the modules you created under `assets/_js/modules/` (provided you imported them in `assets/_js/main.js`).
+    
+####Node modules
+This folder will automatically be created after you run `npm install`. You don't need to do anything with this, and you don't delete it if you want to use gulp.
+
+###WordPress files
+The 2 files every theme must have are `index.php` and `style.css`, and a very basic version of them is included in this example theme. However, if you want to make a custom theme you probably want to add the other [template files](https://developer.wordpress.org/themes/basics/template-hierarchy/).
+
+####Adding the stylesheet and JavaScript files
+To include the production stylesheet and JavaScript files, you need to hook into the [wp_enqueue_scripts](https://developer.wordpress.org/reference/hooks/wp_enqueue_scripts/) WordPress hook in your `functions.php`, like so:
+
+```
+function resources() {
+  // Add all JS libraries 
+  wp_enqueue_script( 'libraries', get_template_directory_uri() . '/dist/js/libraries.min.js', array(), true , true );
+  
+  // Custom site scripts
+  wp_enqueue_script( 'main', get_template_directory_uri() . '/dist/js/main.js', array(), true , true );
+
+  // Stylesheet 
+  wp_enqueue_style( 'theme-style', get_template_directory_uri() . '/dist/css/all-css.min.css' );
+}
+add_action('wp_enqueue_scripts', 'resources');
+```
+
+The important part is to reference these files from the `dist/` directory, and **not** the `assets/` directory!
