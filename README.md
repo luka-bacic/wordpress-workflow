@@ -76,6 +76,7 @@ example_theme/
 |-- node_modules/
 |
 |-- style.css
+|-- .gitignore
 |-- gulpfile.js
 |-- package.json
 |-- package-lock.json
@@ -162,4 +163,21 @@ function resources() {
 add_action('wp_enqueue_scripts', 'resources');
 ```
 
-The important part is to reference these files from the `dist/` directory, and **not** the `assets/` directory!
+The important part here is to reference these files from the `dist/` directory, and **not** the `assets/` directory!
+
+Besides adding your scripts from `dist/`, it is also crucial to add the attribute `type="module"` to the main script being included. Otherwise, you will get weird errors in the console that are hard to debug. We do that in `functions.php` like this:
+
+```
+// Add type="module" for the main script
+function add_type_attribute($tag, $handle, $src) {
+  // if not your script, do nothing and return original $tag
+  if ( 'main' !== $handle ) {
+    return $tag;
+  }
+  // change the script tag by adding type="module" and return it.
+  $tag = '<script type="module" src="' . esc_url( $src ) . '"></script>';
+  return $tag;
+}
+add_filter('script_loader_tag', 'add_type_attribute' , 10, 3);
+```
+
