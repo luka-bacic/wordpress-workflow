@@ -47,7 +47,8 @@ This will install all the required dependencies for the workflow. It will take s
 ```
 gulp
 ```
-Leave this terminal open while you are working. When you are done press `CTRL + C` if you're on Windows and Linux, or `⌘ + C` on Mac.
+This should open your default browser with the dev server. As you make changes to the files in the `prototype` (source files) directory, the dev server will inject CSS changes without reloading, and reload the page if you modify/add PHP, JS and image files.
+Leave this terminal open while you are working.  When you are done press `CTRL + C` if you're on Windows and Linux, or `⌘ + C` on Mac.
 
 That's it, happy coding!
 
@@ -93,7 +94,7 @@ example_theme/
 ### Directory structure explained
 
 There are 2 main subdirectory in the `example_theme` directory.
-1. For development purposes: `example_theme/prototype/`
+1. Source (development) files: `example_theme/prototype/`
 2. Production files: `example_theme/dist/`
 
 #### Source/Development files
@@ -102,10 +103,10 @@ There are 2 main subdirectory in the `example_theme` directory.
 
 1. `_sass/` - All your SCSS source files should be located here. You can further organize your SCSS files to whatever convention you prefer (e.g. [7-1 Pattern](https://sass-guidelin.es/#the-7-1-pattern)), but make sure the SCSS compiles to one file.
 
-2. `_css/` - This directory should contain all CSS files. Your SCSS code will compile to this directory! That's why there is a file called `theme-style.css`. If your are using any CSS library, make sure to copy the library's CSS into this directory (like Bootstrap, Tailwind CSS, etc.). When you run the command `gulp`, gulp will combine all of the CSS files located in this directory into one big minified CSS file. This is done so fewer HTTP requests are called when a website is loading, which increases its loading speed.
+2. `_css/` - This directory should contain all CSS files. Your SCSS code will compile to this directory! That's why there is a file called `theme-style.css`. If your are using any CSS library, make sure to copy the library's CSS into this directory (like Bootstrap, Tailwind CSS, etc.). When you run the command `gulp`, gulp will combine all of the CSS files located in this directory into one big minified CSS file. This is done so fewer HTTP requests are called when a website is loading, which increases its loading speed. You can also place your `*.map.css` files here.
 
 3. `_js/` - This directory contains all of the JavaScript your site needs. Whether its a library like jQuery or just some custom JS you wrote, you place it here. However, there is a structure to be followed:
-    - `libraries/` - Here you copy libraries you want to use, like jQuery, Bootstrap, and other libraries.
+    - `libraries/` - Here you copy libraries you want to use, like jQuery, Bootstrap bundle, and other libraries.
     - `modules/` - Here is the custom JS you write, but split into modules to increase modularity and readability. For example: you want to create a module to alert something to the user. You would create a new file `alert.js`, write a new class, export it as default, and add a constructor which contains your code:
 
     ```
@@ -134,19 +135,21 @@ There are 2 main subdirectory in the `example_theme` directory.
 
 #### Production files
 `dist` is the directory where production-ready files are stored. If you are going to display an image in one of your WordPress template files, include a stylesheet or a JavaScript file - you should reference them for here. After gulp processes the files in the `prototype` directory, the files in `dist` are:
- - compressed and optimized images
  - minified and vendor prefixed stylesheets, combined into 1 file
  - compiled scripts so olderbrowsers can understand it, and combined into 2 files for faster loading. It is also [browserified](http://browserify.org/) so all of the JS is in the browser.
+ - compressed and optimized images
 
 The subdirectories are self explanatory:
-1. `css/` - there will be one file, called `all-css.min.css`. You enqueue this stylesheet in your `functions.php` file. There is an example below on how to do this.
+1. `css/` - there will be one file, called `main.min.css`. You enqueue this stylesheet in your `functions.php` file.
 
-2. `images/` - all your images will be copied here. If you further organized them in subdirectories, it will be copied over. There is an example below on how to include these images in your template files or stylesheets.
+2. `images/` - all your images will be copied here. If you further organized them in subdirectories, it will be copied over.
 
-3. `js/` - you will have 2 files here. There is an example below on how to include them in your site.
+3. `js/` - you will have 2 files here
     - `libraries.min.js` - all files located in `prototype/_js/libraries/` will be combined in this one file.
     - `main.js` - your custom JS code will be here, including all of the modules you created under `prototype/_js/modules/` (provided you imported them in `prototype/_js/main.js`).
     
+[Here are examples](#including-files) on how to include these files in your `functions.php` and WordPress template files. 
+
 #### Node modules
 This directory will automatically be created after you run `npm install`. You don't need to do anything with this, and you don't delete it if you want to use gulp.
 
@@ -155,10 +158,10 @@ This directory will automatically be created after you run `npm install`. You do
 - `functions.php` - used to add stylesheets, scripts, fonts and cool WordPress functionalities.
 
 #### .gitignore
-If you use Git (which you probably should), this file ignores files you don't want to have in your branch.
+If you use Git (which you probably should), this file ignores directories and files you don't want to have in your repository.
 
 #### Workflow files
-- `package.json` - this file contains information about your theme and dependencies
+- `package.json` - this file contains information about your theme and dependencies for npm
 - `package-lock.json` - describes the exact dependency tree, you never modify this file directly
 - `gulpfile.js` - the brain of this repository. This makes your development life easier.
 
@@ -167,9 +170,9 @@ If you use Git (which you probably should), this file ignores files you don't wa
 You need to set up some important settings so this will work on your machine. 
 
 ### Required config
-If you want to start coding immediately and keep the directory structure along with their names, you only need to configure the bare minimum.
+If you want to start coding immediately and keep the directory structure along with the default names, you only need to configure the bare minimum. There are 3 things:
 
-1. Open `gulpfile.js` and modify the variable `serverUrl` on line 1. You need to insert in the url of how you access your project on local. Depending on your OS and stack, it may look something like this:
+1. Open `gulpfile.js` and modify the variable `serverUrl` on line 1. You need to insert in the url of how you access your local project in a browser. Depending on your OS and stack, it may look something like this:
 
 ```
 127.0.0.1:8080/your-project/
@@ -181,14 +184,15 @@ Copy this URL, then replace it with the `REPLACE_ME` string at line 1 in `gulpfi
 var serverURL = '127.0.0.1:8080/your-project/';
 ```
 
-2. Open `style.css` and add your details.
+2. Open `style.css` and add your new theme's details.
 3. Rename `example_theme` to your new theme name.
 
-**Note**: steps 2 and 3 are not required for gulp to work properly, but you should still replace your custom theme details with the default text.
+**Note**: steps 2 and 3 are not required for gulp to work properly, but you should still replace the default text with your custom theme details.
 
 Go back to [Instalation and Quickstart](#installation-quickstart)
 
 ### Optional config
+
 If you want to change the default file names, the folder structure, or remove some tasks from the default task, feel free to do so. However, you need to update all the new names and file paths in `gulpfile.js`.
 
 At the beginning of `gulpfile.js` you will find 4 variables which you can modify to your needs.
@@ -196,10 +200,13 @@ At the beginning of `gulpfile.js` you will find 4 variables which you can modify
 - `root` - if you wish to move the directory where gulp is located, you change this file so every other file reference gets updated. Make sure to move all required files (`package.json`, `gulpfile.js`, etc.)
 - `devFiles` - the directory name where the source files are located.
 - `prodFiles` - the directory name where the production ready files are located.
-- `fileNames` - an object containing file names when gulp outputs the production files
+- `fileNames` - an object containing file names. These are used when gulp outputs the production files.
 - `src` - an object containing file paths for SCSS, CSS, JS, images and PHP files.
 
-## Adding the stylesheet and JavaScript files
+## Including files
+
+### Stylesheets and JavaScript
+
 To include the production stylesheet and JavaScript files, you need to hook into the [wp_enqueue_scripts](https://developer.wordpress.org/reference/hooks/wp_enqueue_scripts/) WordPress hook in your `functions.php`, like so:
 
 ```
@@ -211,7 +218,7 @@ function resources() {
   wp_enqueue_script( 'main', get_template_directory_uri() . '/dist/js/main.js', array(), true , true );
 
   // Stylesheet 
-  wp_enqueue_style( 'theme-style', get_template_directory_uri() . '/dist/css/all-css.min.css' );
+  wp_enqueue_style( 'theme-style', get_template_directory_uri() . '/dist/css/main.min.css' );
 }
 add_action('wp_enqueue_scripts', 'resources');
 ```
