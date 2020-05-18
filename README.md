@@ -1,20 +1,19 @@
 # Workflow for WordPress themes
 
 ## Disclaimer
-This repository assumes you previously installed WordPress on your machine and set up your database. This repository contains only one theme directory which is meant to be placed at `your-project/wp-content/themes/`.
+This repository assumes you had previously setup a local server and database with WordPress installed. This repository contains only one **theme** directory which is meant to be placed at `your-project/wp-content/themes/`.
 
 ## Why you should use this workflow
-This workflow uses [gulp](https://gulpjs.com/) to automate tasks, such as: 
- - automatically injects CSS changes into the browser without the need to refresh the page
- - automatically refreshes the page if PHP or JS files are modified 
- - compiling [SCSS](https://sass-lang.com/) to CSS
- - [autoprefixes](https://github.com/postcss/autoprefixer) your CSS with vendor prefixes for cross-browser compability
- - combines all CSS files into one big file (website will load faster as there will be fewer HTTP requests)
- - transpiling ES6 JavaScript to an older version (enables you to use modern JavaScript without worrying about older browsers)
- - combines all of your JavaScript libraries (e.g. Bootstrap, jQuery) into one big file (website will load faster as there will be fewer HTTP requests)
- - optimizes your images for web (lower bandwidth usage, faster website)
-
-If some parts remain confusing, don't hesitate to contact me at luka.bacic278@gmail.com
+This workflow uses [gulp](https://gulpjs.com/) to automate tasks, such as:
+- start a local dev server that proxies your website
+- automatically injects CSS changes into the browser without the need to refresh the page
+- automatically refreshes the page if PHP, JS and image files are modified
+- compiles [SCSS](https://sass-lang.com/) to CSS
+- [autoprefixes](https://github.com/postcss/autoprefixer) your CSS with vendor prefixes for cross-browser compability
+- combines all CSS files into one big file (website will load faster as there will be fewer HTTP requests)
+- transpiling ES6 JavaScript to an older version (enables you to use modern JavaScript without worrying about older browsers)
+- combines all of your JavaScript libraries (e.g. Bootstrap, jQuery) into one big file (website will load faster as there will be fewer HTTP requests)
+- optimizes your images for web (lower bandwidth usage, faster website)
 
 ## Requirements
 To be able to use this workflow, you need:
@@ -22,7 +21,7 @@ To be able to use this workflow, you need:
 - basic understanding of using the terminal
 - Node.js installed globally ([guide](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm))
 
-## Installation
+## Installation & Quickstart
 
 0. **Important!** You need to install WordPress, set up the database and the database connection!
 1. Download this repo as a ZIP, extract files, and copy `example_theme` directory to your WordPress' `themes` folder: `your-project/wp-content/themes/`
@@ -36,7 +35,21 @@ cd wp-content/themes/example_theme
 ```
 npm install
 ```
-This will install all the required dependencies to enable the workflow. It will take several minutes. When it finishes a new folder will appear called `node_modules`.
+This will install all the required dependencies for the workflow. It will take several minutes. When it finishes a new folder will appear called `node_modules`.
+
+4. Modify `gulpfile.js`, `style.css` and rename your theme as described  [here](#required-config).
+
+5. Activate your theme in the WordPress Admin:
+    - Log into the WP admin area by appending `wp-admin/` to your site URL. If your site URL is `127.0.0.1:8080/your-project/`, then the log in form is `127.0.0.1:8080/your-project/wp-admin`
+    - In the left sidebar, navigate to `Appearence` -> `Themes`
+    - Find your new custom theme, hover over it and click `Activate`
+6. Run the following command in the terminal from your theme's directory:
+```
+gulp
+```
+Leave this terminal open while you are working. When you are done press `CTRL + C` if you're on Windows and Linux, or `⌘ + C` on Mac.
+
+That's it, happy coding!
 
 ## Directory Structure
 
@@ -156,20 +169,25 @@ You need to set up some important settings so this will work on your machine.
 ### Required config
 If you want to start coding immediately and keep the directory structure along with their names, you only need to configure the bare minimum.
 
-1. Open `gulpfile.js` and modify the variable `serverUrl` on line 1. You need to paste in the url of how you access your project on local. Depending on your OS and stack, it may look something like this:
+1. Open `gulpfile.js` and modify the variable `serverUrl` on line 1. You need to insert in the url of how you access your project on local. Depending on your OS and stack, it may look something like this:
 
 ```
-127.0.0.1:8080/your-project
+127.0.0.1:8080/your-project/
 ```
 
-Then your line 1 in `gulpfile.js` will look like this:
+Copy this URL, then replace it with the `REPLACE_ME` string at line 1 in `gulpfile.js`. After you paste it, it should look like this:
 
 ```
-var serverURL = '127.0.0.1:8080/wordpress';
+var serverURL = '127.0.0.1:8080/your-project/';
 ```
 
 2. Open `style.css` and add your details.
-3. Rename the theme folder.
+3. Rename `example_theme` to your new theme name.
+
+**Note**: steps 2 and 3 are not required for gulp to work properly, but you should still replace your custom theme details with the default text.
+
+Go back to [Instalation and Quickstart](#installation-quickstart)
+
 ### Optional config
 If you want to change the default file names, the folder structure, or remove some tasks from the default task, feel free to do so. However, you need to update all the new names and file paths in `gulpfile.js`.
 
