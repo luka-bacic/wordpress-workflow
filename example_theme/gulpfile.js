@@ -101,6 +101,7 @@ gulp.task('serve', gulp.series(['sass', 'combineCss', 'images', 'browserify', 'c
   });
 
   gulp.watch(src.sassSrc, gulp.series('sass'));
+  gulp.watch(src.sassSrc, gulp.series('combineCss'));
   gulp.watch(src.cssSrc, gulp.series('combineCss'))
   gulp.watch(src.imgSrc, gulp.series('images'));
   gulp.watch(src.jsLib, gulp.series('combineJsLibraries'));
