@@ -65,8 +65,10 @@ For the sake of everything making sense, lets look how the default folder struct
 example_theme/
 |-- dist/
 |   |-- css/
-|   |   `-- all-css.min.css
+|   |   `-- main.min.css
 |   |-- images/
+|   |   |-- komodo.jpg
+|   |   `-- lizard.jpg
 |   `-- js/
 |       |-- libraries.min.js
 |       `-- main.js
@@ -76,6 +78,7 @@ example_theme/
 |   |   |-- bootstrap.min.css
 |   |   `-- theme-style.css
 |   |-- _img/
+|   |   |-- komodo.jpg
 |   |   `-- lizard.jpg
 |   |-- _js/
 |   |   |-- libraries/
@@ -85,9 +88,22 @@ example_theme/
 |   |   |   `-- alert.js
 |   |   `-- main.js
 |   `-- _sass/
-|       |-- libraries/
-|       `-- theme-style.scss
-|
+|       |-- base/
+|       |   |-- _global.scss
+|       |   `-- _typography.scss
+|       |-- components/
+|       |   |-- _figure.scss
+|       |   `-- _global.scss
+|       |-- layout/
+|       |   |-- _body.scss
+|       |   `-- _global.scss
+|       |-- pages/
+|       |   |-- _front-page.scss
+|       |   `-- _global.scss
+|       `-- utils/
+|           |-- _global.scss
+|           |-- _mixins.scss
+|           `-- _variables.scss
 |-- style.css
 |-- .gitignore
 |-- gulpfile.js
@@ -140,9 +156,9 @@ There are 2 main subdirectory in the `example_theme` directory.
 
 #### Production files
 `dist` is the directory where production-ready files are stored. If you are going to display an image in one of your WordPress template files, include a stylesheet or a JavaScript file - you should reference them for here. After gulp processes the files in the `prototype` directory, the files in `dist` are:
- - minified and vendor prefixed stylesheets, combined into 1 file
- - compiled scripts so olderbrowsers can understand it, and combined into 2 files for faster loading. It is also [browserified](http://browserify.org/) so all of the JS is in the browser.
- - compressed and optimized images
+ - minified and vendor prefixed stylesheets, combined into 1 file.
+ - transpiled scripts so older browsers can understand modern JS, and combined into 2 files for faster loading. It is also [browserified](http://browserify.org/) so all of the JS is in the browser.
+ - compressed and optimized images.
 
 The subdirectories are self explanatory:
 1. `css/` - there will be one file, called `main.min.css`. You enqueue this stylesheet in your `functions.php` file.
@@ -166,8 +182,8 @@ This directory will automatically be created after you run `npm install`. You do
 If you use Git (which you probably should), this file ignores directories and files you don't want to have in your repository.
 
 #### Workflow files
-- `package.json` - this file contains information about your theme and dependencies for npm
-- `package-lock.json` - describes the exact dependency tree, you never modify this file directly
+- `package.json` - this file contains information about your theme and dependencies for npm.
+- `package-lock.json` - describes the exact dependency tree, you never modify this file directly.
 - `gulpfile.js` - the brain of this repository. This makes your development life easier.
 
 ## Configuration
@@ -175,7 +191,7 @@ If you use Git (which you probably should), this file ignores directories and fi
 You need to set up some important settings so this will work on your machine. 
 
 ### Required config
-If you want to start coding immediately and keep the directory structure along with the default names, you only need to configure the bare minimum. There are 3 things:
+If you want to start coding immediately and keep the directory structure along with the default names, you only need to configure the bare minimum. There are 3 things to configure:
 
 1. Open `gulpfile.js` and modify the variable `serverUrl` on line 1. You need to insert in the url of how you access your local project in a browser. Depending on your OS and stack, it may look something like this:
 
@@ -207,6 +223,7 @@ At the beginning of `gulpfile.js` you will find 4 variables which you can modify
 - `prodFiles` - the directory name where the production ready files are located.
 - `fileNames` - an object containing file names. These are used when gulp outputs the production files.
 - `src` - an object containing file paths for SCSS, CSS, JS, images and PHP files.
+- `browsers` - a string containing browsers you want autoprefixer to add vendor prefixes.
 
 ## Including files
 

@@ -25,6 +25,8 @@ var src = {
   php:      root + '**/*.php',                          // location of all PHP files which will be watched for page reloads
 };
 
+// Browsers to support for autoprefixer
+var browsers = 'last 2 versions';
 
 // Don't touch these
 var gulp         = require('gulp'),
@@ -47,7 +49,7 @@ gulp.task('sass', function() {
       errLogToConsole: true,
       outputStyle: 'compressed'
     }))
-    .pipe(autoprefixer('last 2 versions'))
+    .pipe(autoprefixer(browsers))
     .pipe(gulp.dest(src.sassDest))
     .pipe(reload({stream: true}));
 });
