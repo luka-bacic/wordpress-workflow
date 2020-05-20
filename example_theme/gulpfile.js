@@ -62,7 +62,8 @@ gulp.task('combineCss', function() {
   return gulp.src(src.cssSrc)
     .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(concat(fileNames.css))
-    .pipe(gulp.dest(src.cssDest));
+    .pipe(gulp.dest(src.cssDest))
+    .pipe(reload({stream: true}));
 });
 
 // Optimize all images in image source folder and spit them out at image production folder

@@ -26,12 +26,13 @@ To be able to use this workflow, you need:
 0. **Important!** You need to install WordPress, set up the database and the database connection!
 1. Download this repo as a ZIP, extract files, and copy `example_theme` directory to your WordPress' `themes` folder: `your-project/wp-content/themes/`
 
-2. Open a terminal and navigate to the folder you just copied over (`example_theme`)
-```
-cd wp-content/themes/example_theme
-```
+2. Modify `gulpfile.js`, `style.css` and rename your theme as described  [here](#required-config).
 
-3. Modify `gulpfile.js`, `style.css` and rename your theme as described  [here](#required-config).
+3. Open a terminal and navigate to the folder you just copied over. If you renamed your theme folder to `my-theme`, then you would run
+
+```
+cd wp-content/themes/my-theme
+```
 
 4. Then run:
 ```
