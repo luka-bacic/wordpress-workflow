@@ -242,9 +242,9 @@ If you would like to include an image to a WordPress template file, you can do s
 
 If you would like to include an image in you SCSS, you do it like this
 ```
-.hero {
-  background: url('../images/lizard.jpg');
+.bg-image {
+  background: url('../images/komodo.jpg');
 }
 ```
-Explanation: even though you are writing SCSS from `prototype/_sass/`, the compiled CSS will be located at `dist/css/`. Since both the images and css are in `dist/`, you just go 1 directory up, and then into `images`.
+Explanation: even though you are writing SCSS from `prototype/_sass/`, the compiled CSS will be located at `dist/css/`. Since both the images and css are in `dist/`, you just go 1 directory up, and then into `images/`.
 
