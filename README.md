@@ -5,7 +5,7 @@ This repository assumes you had previously setup a local server and database wit
 
 ## Table of Contents
 - [Requirements](#requirements)
-- [Installation & Quickstart](#installation-quickstart)
+- [Installation and Quickstart](#installation-and-quickstart)
 - [Why you should use this workflow](#why-you-should-use-this-workflow)
 - [Directory Structure](#directory-structure)
   - [Directory structure explained](#directory-structure-explained)
@@ -28,7 +28,7 @@ To be able to use this workflow, you need:
 - basic understanding of using the terminal
 - Node.js installed globally ([guide](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm))
 
-## Installation & Quickstart
+## Installation and Quickstart
 
 0. **Important!** You need to install WordPress, set up the database and the database connection!
 1. Download this repo as a ZIP, extract files, and copy `example_theme` directory to your WordPress' `themes` folder: `your-project/wp-content/themes/`
@@ -230,7 +230,7 @@ var serverURL = '127.0.0.1:8080/your-project/';
 
 **Note**: steps 2 and 3 are not required for gulp to work properly, but you should still replace the default text with your custom theme details.
 
-Go back to [Instalation and Quickstart](#installation-quickstart)
+Go back to [Instalation and Quickstart](#installation-and-quickstart)
 
 ### Optional config
 
