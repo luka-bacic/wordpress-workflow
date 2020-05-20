@@ -101,9 +101,11 @@ gulp.task('serve', gulp.series(['sass', 'combineCss', 'images', 'browserify', 'c
   });
 
   gulp.watch(src.sassSrc, gulp.series('sass'));
+  gulp.watch(src.sassSrc, gulp.series('combineCss'));
   gulp.watch(src.cssSrc, gulp.series('combineCss'))
   gulp.watch(src.imgSrc, gulp.series('images'));
   gulp.watch(src.jsLib, gulp.series('combineJsLibraries'));
+  gulp.watch(src.jsWatch, gulp.series('browserify'));
   gulp.watch(src.jsWatch).on('change', reload);
   gulp.watch(src.php).on('change', reload);
 }));

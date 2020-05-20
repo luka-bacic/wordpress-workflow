@@ -6,14 +6,14 @@ This repository assumes you had previously setup a local server and database wit
 ## Why you should use this workflow
 This workflow uses [gulp](https://gulpjs.com/) to automate tasks, such as:
 - start a local dev server that proxies your website
-- automatically injects CSS changes into the browser without the need to refresh the page
-- automatically refreshes the page if PHP, JS and image files are modified
-- compiles [SCSS](https://sass-lang.com/) to CSS
-- [autoprefixes](https://github.com/postcss/autoprefixer) your CSS with vendor prefixes for cross-browser compability
-- combines all CSS files into one big file (website will load faster as there will be fewer HTTP requests)
-- transpiling ES6 JavaScript to an older version (enables you to use modern JavaScript without worrying about older browsers)
-- combines all of your JavaScript libraries (e.g. Bootstrap, jQuery) into one big file (website will load faster as there will be fewer HTTP requests)
-- optimizes your images for web (lower bandwidth usage, faster website)
+- automatically inject CSS changes into the browser without the need to refresh the page
+- automatically refresh the page if PHP, JS and image files are added or modified
+- compile [SCSS](https://sass-lang.com/) to CSS
+- [autoprefix](https://github.com/postcss/autoprefixer) your CSS with vendor prefixes for cross-browser compability
+- combine all CSS files into one big file (website will load faster as there will be fewer HTTP requests)
+- transpile ES6 JavaScript to an older version (enables you to use modern JavaScript without worrying about older browsers)
+- combine all of your JavaScript libraries (e.g. Bootstrap bundle, jQuery) into one big file (website will load faster as there will be fewer HTTP requests)
+- optimize your images for web (lower bandwidth usage, faster website)
 
 ## Requirements
 To be able to use this workflow, you need:
@@ -31,26 +31,31 @@ To be able to use this workflow, you need:
 cd wp-content/themes/example_theme
 ```
 
-3. Then run:
+3. Modify `gulpfile.js`, `style.css` and rename your theme as described  [here](#required-config).
+
+4. Then run:
 ```
 npm install
 ```
-This will install all the required dependencies for the workflow. It will take several minutes. When it finishes a new folder will appear called `node_modules`.
-
-4. Modify `gulpfile.js`, `style.css` and rename your theme as described  [here](#required-config).
+This will install all the required dependencies for the workflow. It might take several minutes. When it finishes a new directory will appear called `node_modules`.
 
 5. Activate your theme in the WordPress Admin:
-    - Log into the WP admin area by appending `wp-admin/` to your site URL. If your site URL is `127.0.0.1:8080/your-project/`, then the log in form is `127.0.0.1:8080/your-project/wp-admin`
+    - Log into the WP admin area by appending `wp-admin/` to your site URL. If your site URL is `127.0.0.1:8080/your-project/`, then the log in URL is `127.0.0.1:8080/your-project/wp-admin`
     - In the left sidebar, navigate to `Appearence` -> `Themes`
     - Find your new custom theme, hover over it and click `Activate`
+
 6. Run the following command in the terminal from your theme's directory:
+
 ```
 gulp
 ```
-This should open your default browser with the dev server. As you make changes to the files in the `prototype` (source files) directory, the dev server will inject CSS changes without reloading, and reload the page if you modify/add PHP, JS and image files.
+
+That's it!
+
+This should open your default browser with the dev server. As you make changes to the files in the `prototype` (source files) directory, the dev server will inject CSS changes without reloading, and reload the page if you add or modify PHP, JS and image files.
 Leave this terminal open while you are working.  When you are done press `CTRL + C` if you're on Windows and Linux, or `⌘ + C` on Mac.
 
-That's it, happy coding!
+Happy coding!
 
 ## Directory Structure
 
@@ -225,18 +230,21 @@ add_action('wp_enqueue_scripts', 'resources');
 
 The important part here is to reference these files from the `dist/` directory, and **not** the `prototype/` directory!
 
-Besides adding your scripts from `dist/`, it is also crucial to add the attribute `type="module"` to the main script being included. Otherwise, you will get weird errors in the console that are hard to debug. We do that in `functions.php` like this:
+### Images
+If you would like to include an image to a WordPress template file, you can do so like this
 
 ```
-// Add type="module" for the main script
-function add_type_attribute($tag, $handle, $src) {
-  // if not your script, do nothing and return original $tag
-  if ( 'main' !== $handle ) {
-    return $tag;
-  }
-  // change the script tag by adding type="module" and return it.
-  $tag = '<script type="module" src="' . esc_url( $src ) . '"></script>';
-  return $tag;
-}
-add_filter('script_loader_tag', 'add_type_attribute' , 10, 3);
+<img
+  src="<?php echo bloginfo( 'template_directory' ) . '/dist/images/lizard.jpg'; ?>"
+  alt="pink lizard chilling"
+/>
 ```
+
+If you would like to include an image in you SCSS, you do it like this
+```
+.bg-image {
+  background: url('../images/komodo.jpg');
+}
+```
+Explanation: even though you are writing SCSS from `prototype/_sass/`, the compiled CSS will be located at `dist/css/`. Since both the images and css are in `dist/`, you just go 1 directory up, and then into `images/`.
+
