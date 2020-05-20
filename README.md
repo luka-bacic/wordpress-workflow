@@ -6,14 +6,14 @@ This repository assumes you had previously setup a local server and database wit
 ## Why you should use this workflow
 This workflow uses [gulp](https://gulpjs.com/) to automate tasks, such as:
 - start a local dev server that proxies your website
-- automatically injects CSS changes into the browser without the need to refresh the page
-- automatically refreshes the page if PHP, JS and image files are modified
-- compiles [SCSS](https://sass-lang.com/) to CSS
-- [autoprefixes](https://github.com/postcss/autoprefixer) your CSS with vendor prefixes for cross-browser compability
-- combines all CSS files into one big file (website will load faster as there will be fewer HTTP requests)
-- transpiling ES6 JavaScript to an older version (enables you to use modern JavaScript without worrying about older browsers)
-- combines all of your JavaScript libraries (e.g. Bootstrap, jQuery) into one big file (website will load faster as there will be fewer HTTP requests)
-- optimizes your images for web (lower bandwidth usage, faster website)
+- automatically inject CSS changes into the browser without the need to refresh the page
+- automatically refresh the page if PHP, JS and image files are added or modified
+- compile [SCSS](https://sass-lang.com/) to CSS
+- [autoprefix](https://github.com/postcss/autoprefixer) your CSS with vendor prefixes for cross-browser compability
+- combine all CSS files into one big file (website will load faster as there will be fewer HTTP requests)
+- transpile ES6 JavaScript to an older version (enables you to use modern JavaScript without worrying about older browsers)
+- combine all of your JavaScript libraries (e.g. Bootstrap bundle, jQuery) into one big file (website will load faster as there will be fewer HTTP requests)
+- optimize your images for web (lower bandwidth usage, faster website)
 
 ## Requirements
 To be able to use this workflow, you need:
@@ -37,10 +37,10 @@ cd wp-content/themes/example_theme
 ```
 npm install
 ```
-This will install all the required dependencies for the workflow. It will take several minutes. When it finishes a new folder will appear called `node_modules`.
+This will install all the required dependencies for the workflow. It might take several minutes. When it finishes a new directory will appear called `node_modules`.
 
 5. Activate your theme in the WordPress Admin:
-    - Log into the WP admin area by appending `wp-admin/` to your site URL. If your site URL is `127.0.0.1:8080/your-project/`, then the log in form is `127.0.0.1:8080/your-project/wp-admin`
+    - Log into the WP admin area by appending `wp-admin/` to your site URL. If your site URL is `127.0.0.1:8080/your-project/`, then the log in URL is `127.0.0.1:8080/your-project/wp-admin`
     - In the left sidebar, navigate to `Appearence` -> `Themes`
     - Find your new custom theme, hover over it and click `Activate`
 
@@ -50,10 +50,12 @@ This will install all the required dependencies for the workflow. It will take s
 gulp
 ```
 
-This should open your default browser with the dev server. As you make changes to the files in the `prototype` (source files) directory, the dev server will inject CSS changes without reloading, and reload the page if you modify/add PHP, JS and image files.
+That's it!
+
+This should open your default browser with the dev server. As you make changes to the files in the `prototype` (source files) directory, the dev server will inject CSS changes without reloading, and reload the page if you add or modify PHP, JS and image files.
 Leave this terminal open while you are working.  When you are done press `CTRL + C` if you're on Windows and Linux, or `⌘ + C` on Mac.
 
-That's it, happy coding!
+Happy coding!
 
 ## Directory Structure
 

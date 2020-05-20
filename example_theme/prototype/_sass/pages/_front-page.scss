@@ -1,8 +1,10 @@
 // Front Page
 // ------------
 
-.home {
-  .hero {
-    background: url('https://picsum.photos/1920/1080');
-  }
+.bg-image {
+  margin: 0 auto;
+  background: url('../images/komodo.jpg');
+  width: 640px;
+  height: 426px;
+  border-radius: 4px;
 }
