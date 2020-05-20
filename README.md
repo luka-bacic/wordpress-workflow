@@ -3,17 +3,24 @@
 ## Disclaimer
 This repository assumes you had previously setup a local server and database with WordPress installed. This repository contains only one **theme** directory which is meant to be placed at `your-project/wp-content/themes/`.
 
-## Why you should use this workflow
-This workflow uses [gulp](https://gulpjs.com/) to automate tasks, such as:
-- start a local dev server that proxies your website
-- automatically inject CSS changes into the browser without the need to refresh the page
-- automatically refresh the page if PHP, JS and image files are added or modified
-- compile [SCSS](https://sass-lang.com/) to CSS
-- [autoprefix](https://github.com/postcss/autoprefixer) your CSS with vendor prefixes for cross-browser compability
-- combine all CSS files into one big file (website will load faster as there will be fewer HTTP requests)
-- transpile ES6 JavaScript to an older version (enables you to use modern JavaScript without worrying about older browsers)
-- combine all of your JavaScript libraries (e.g. Bootstrap bundle, jQuery) into one big file (website will load faster as there will be fewer HTTP requests)
-- optimize your images for web (lower bandwidth usage, faster website)
+## Table of Contents
+- [Requirements](#requirements)
+- [Installation & Quickstart](#installation-quickstart)
+- [Why you should use this workflow](#why-you-should-use-this-workflow)
+- [Directory Structure](#directory-structure)
+  - [Directory structure explained](#directory-structure-explained)
+    - [Source/Development files](#sourcedevelopment-files)
+    - [Production Files](#production-files)
+    - [Node modules](#node-modules)
+    - [WordPress files](#wordpress-files)
+    - [.gitignore](#gitignore)
+    - [Workflow files](#workflow-files)
+- [Configuration](#configuration)
+  - [Required config](#required-config)
+  - [Optional config](#optional-config)
+- [Including files](#including-files)
+  - [Stylesheets and JavaScript](#stylesheets-and-javascript)
+  - [Images](#images)
 
 ## Requirements
 To be able to use this workflow, you need:
@@ -57,6 +64,18 @@ This should open your default browser with the dev server. As you make changes t
 Leave this terminal open while you are working.  When you are done press `CTRL + C` if you're on Windows and Linux, or `⌘ + C` on Mac.
 
 Happy coding!
+
+## Why you should use this workflow
+This workflow uses [gulp](https://gulpjs.com/) to automate tasks, such as:
+- start a local dev server that proxies your website
+- automatically inject CSS changes into the browser without the need to refresh the page
+- automatically refresh the page if PHP, JS and image files are added or modified
+- compile [SCSS](https://sass-lang.com/) to CSS
+- [autoprefix](https://github.com/postcss/autoprefixer) your CSS with vendor prefixes for cross-browser compability
+- combine all CSS files into one big file (website will load faster as there will be fewer HTTP requests)
+- transpile ES6 JavaScript to an older version (enables you to use modern JavaScript without worrying about older browsers)
+- combine all of your JavaScript libraries (e.g. Bootstrap bundle, jQuery) into one big file (website will load faster as there will be fewer HTTP requests)
+- optimize your images for web (lower bandwidth usage, faster website)
 
 ## Directory Structure
 
