@@ -2,6 +2,9 @@
 
 // Add CSS, JS, Fonts
 function resources() {
+  // Add jQuery via CDN
+  wp_enqueue_script( 'jquery_cdn', 'https://code.jquery.com/jquery-3.5.1.min.js', null, null, true);
+  
   // Add all JS libraries (includes one big file with all libraries located in `/assets/js/libraries/`)
   wp_enqueue_script( 'libraries', get_template_directory_uri() . '/dist/js/libraries.min.js', array(), true , true );
   
