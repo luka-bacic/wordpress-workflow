@@ -2,13 +2,19 @@
 
 // Add CSS, JS, Fonts
 function resources() {
-  // Add all JS libraries (includes one big file with all libraries located in `/assets/js/libraries/`)
-  wp_enqueue_script( 'libraries', get_template_directory_uri() . '/dist/js/libraries.min.js', array(), true , true );
-  
+  // Add jQuery via CDN
+  wp_enqueue_script( 'jquery_cdn', 'https://code.jquery.com/jquery-3.5.1.min.js', null, null, true);
+
+  // Add Bootstrap Bundle v4.5
+  wp_enqueue_script( 'bootstrap_bundle', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js', null, null, true);
+
   // Custom site scripts
   wp_enqueue_script( 'main', get_template_directory_uri() . '/dist/js/main.js', array(), true , true );
 
-  // All CSS combined into 1 (the file outputted by combining sass files and other css files placed in `/assets/_css/`)
-  wp_enqueue_style( 'theme-style', get_template_directory_uri() . '/dist/css/main.min.css' );
+  // Bootstrap CSS
+  wp_enqueue_style( 'bootstrap_css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css' );
+  
+  // Theme CSS
+  wp_enqueue_style( 'theme_style', get_template_directory_uri() . '/dist/css/main.min.css' );
 }
 add_action('wp_enqueue_scripts', 'resources');
