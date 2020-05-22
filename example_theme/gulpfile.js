@@ -37,6 +37,8 @@ var gulp         = require('gulp'),
     imagemin     = require('gulp-imagemin'),
     babel        = require('gulp-babel'),
     browserify   = require('browserify'),
+    uglify       = require('gulp-uglify'),
+    buffer       = require('vinyl-buffer'),
     source       = require('vinyl-source-stream'),
     babelify     = require('babelify'),
     concat       = require('gulp-concat'),
@@ -86,6 +88,8 @@ gulp.task('browserify', function() {
     .bundle()
     //Pass desired output filename to vinyl-source-stream
     .pipe(source(fileNames.customJs))
+    .pipe(buffer())
+    .pipe(uglify())
     // Start piping stream to tasks!
     .pipe(gulp.dest(src.jsDest));
 });
