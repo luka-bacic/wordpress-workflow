@@ -1,9 +1,9 @@
 # Workflow for WordPress themes
 
-## Disclaimer
+# Disclaimer
 This repository assumes you had previously setup a local server and database with WordPress installed. This repository contains only one **theme** directory which is meant to be placed at `your-project/wp-content/themes/`.
 
-## Table of Contents
+# Table of Contents
 - [Requirements](#requirements)
 - [Installation and Quickstart](#installation-and-quickstart)
 - [Why you should use this workflow](#why-you-should-use-this-workflow)
@@ -22,13 +22,13 @@ This repository assumes you had previously setup a local server and database wit
   - [Stylesheets and JavaScript](#stylesheets-and-javascript)
   - [Images](#images)
 
-## Requirements
+# Requirements
 To be able to use this workflow, you need:
 - A local web and database server with WordPress installed and configured ([guide](https://www.wpbeginner.com/wp-tutorials/how-to-create-a-local-wordpress-site-using-xampp/))
 - basic understanding of using the terminal
 - Node.js installed globally ([guide](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm))
 
-## Installation and Quickstart
+# Installation and Quickstart
 
 0. **Important!** You need to install WordPress, set up the database and the database connection!
 1. Download this repo as a ZIP, extract files, and copy `example_theme` directory to your WordPress' `themes` folder: `your-project/wp-content/themes/`
@@ -65,19 +65,19 @@ Leave this terminal open while you are working.  When you are done press `CTRL +
 
 Happy coding!
 
-## Why you should use this workflow
+# Why you should use this workflow
 This workflow uses [gulp](https://gulpjs.com/) to automate tasks, such as:
 - start a local dev server that proxies your website
 - automatically inject CSS changes into the browser without the need to refresh the page
 - automatically refresh the page if PHP, JS and image files are added or modified
 - compile [SCSS](https://sass-lang.com/) to CSS
 - [autoprefix](https://github.com/postcss/autoprefixer) your CSS with vendor prefixes for cross-browser compability
-- combine all CSS files into one big file (website will load faster as there will be fewer HTTP requests)
+- combine all CSS files into one file (if CDNs are not an option)
 - transpile ES6 JavaScript to an older version (enables you to use modern JavaScript without worrying about older browsers)
-- combine all of your JavaScript libraries (e.g. Bootstrap bundle) into one file
+- combine all of your JavaScript libraries into one file (if CDNs are not an option)
 - optimize your images for web (lower bandwidth usage, faster website)
 
-## Directory Structure
+# Directory Structure
 
 For the sake of everything making sense, lets look how the default folder structure is organized:
 
@@ -128,13 +128,13 @@ example_theme/
 |-- functions.php
 `-- index.php
 ```
-### Directory structure explained
+## Directory structure explained
 
 There are 2 main subdirectory in the `example_theme` directory.
 1. Source (development) files: `example_theme/prototype/`
 2. Production files: `example_theme/dist/`
 
-#### Source/Development files
+### Source/Development files
 
 `prototype/` is the directory where you will work in. It has 4 subdirectories. All subdirectories have an underscore before their name so you know that these files are for developing purposes, and not ready to be served for production. We will go over them in a specific order, to make more sense.
 
@@ -170,7 +170,7 @@ There are 2 main subdirectory in the `example_theme` directory.
 4. `_img/` - This directory should contain all of your images - JPG, PNG, GIF and SVG. You can further organize the images in subdirectories - the directory structure will be copied in the production directory when you run `gulp`.
 
 
-#### Production files
+### Production files
 `dist` is the directory where production-ready files are stored. If you are going to display an image in one of your WordPress template files, include a stylesheet or a JavaScript file - you should reference them for here. After gulp processes the files in the `prototype` directory, the files in `dist` are:
  - minified and vendor prefixed stylesheets, combined into 1 file.
  - transpiled scripts so older browsers can understand modern JS, and combined into 2 files for faster loading. It is also [browserified](http://browserify.org/) so all of the JS is in the browser.
@@ -189,26 +189,26 @@ The subdirectories are self explanatory:
     
 [Here are examples](#including-files) on how to include these files in your `functions.php` and WordPress template files. 
 
-#### Node modules
+### Node modules
 This directory will automatically be created after you run `npm install`. You don't need to do anything with this, and you don't delete it if you want to use gulp.
 
-#### WordPress files
+### WordPress files
 - `index.php` and `style.css` - the 2 files every WordPress theme must have.
 - `functions.php` - used to add stylesheets, scripts, fonts and cool WordPress functionalities.
 
-#### .gitignore
+### .gitignore
 If you use Git (which you probably should), this file ignores directories and files you don't want to have in your repository.
 
-#### Workflow files
+### Workflow files
 - `package.json` - this file contains information about your theme and dependencies for npm.
 - `package-lock.json` - describes the exact dependency tree, you never modify this file directly.
 - `gulpfile.js` - the brain of this repository. This makes your development life easier.
 
-## Configuration
+# Configuration
 
 You need to set up some important settings so this will work on your machine. 
 
-### Required config
+## Required config
 If you want to start coding immediately and keep the directory structure along with the default names, you only need to configure the bare minimum. There are 3 things to configure:
 
 1. Open `gulpfile.js` and modify the variable `serverUrl` on line 1. You need to insert in the url of how you access your local project in a browser. Depending on your OS and stack, it may look something like this:
@@ -230,7 +230,7 @@ var serverURL = '127.0.0.1:8080/your-project/';
 
 Go back to [Instalation and Quickstart](#installation-and-quickstart)
 
-### Optional config
+## Optional config
 
 If you want to change the default file names, the folder structure, or remove some tasks from the default task, feel free to do so. However, you need to update all the new names and file paths in `gulpfile.js`.
 
@@ -243,9 +243,9 @@ At the beginning of `gulpfile.js` you will find 4 variables which you can modify
 - `src` - an object containing file paths for SCSS, CSS, JS, images and PHP files.
 - `browsers` - a string containing browsers you want autoprefixer to add vendor prefixes.
 
-## Including files
+# Including files
 
-### Stylesheets and JavaScript
+## Stylesheets and JavaScript
 
 To include CSS and JS files, the recommended way is to hook into the [wp_enqueue_scripts](https://developer.wordpress.org/reference/hooks/wp_enqueue_scripts/) WordPress hook in your `functions.php`. You can create one function called `resources` where you will enqueue all of your files.
 
@@ -258,7 +258,7 @@ add_action('wp_enqueue_scripts', 'resources');
 
 
 
-#### Including CDN JavaScript
+### Including CDN JavaScript
 
 To include a file hosted on a CDN, add this to the `resources` function:
 
@@ -267,7 +267,7 @@ To include a file hosted on a CDN, add this to the `resources` function:
 wp_enqueue_script( 'jquery_cdn', 'https://code.jquery.com/jquery-3.5.1.min.js', null, null, true);
 ```
 
-#### Including JS libraries without a CDN
+### Including JS libraries without a CDN
 
 If a library you want to use doesn't have a CDN, you should place the file under `prototype/_js/libraries/`. All files located here will be combined into `libraries.min.js`, and will be located in `dist/js/`. You enqueue this file like the main JS, but add this line after the CDN enqueues, and before your main JS enqueue:
 
@@ -276,7 +276,7 @@ If a library you want to use doesn't have a CDN, you should place the file under
 wp_enqueue_script( 'libraries', get_template_directory_uri() . '/dist/js/libraries.min.js', array(), true , true );
 ```
 
-#### Custom JavaScript
+### Custom JavaScript
 
 To include the JavaScript you wrote, include this file `dist/js/main.js` by adding this line to the `resources` function:
 
@@ -286,7 +286,7 @@ To include the JavaScript you wrote, include this file `dist/js/main.js` by addi
 wp_enqueue_script( 'main', get_template_directory_uri() . '/dist/js/main.js', array(), true , true );
 ```
 
-#### CDN stylesheet
+### CDN stylesheet
 
 ```
 // Bootstrap CSS
@@ -294,7 +294,7 @@ wp_enqueue_style( 'bootstrap_css', 'https://stackpath.bootstrapcdn.com/bootstrap
 
 ```
 
-#### Theme stylesheet
+### Theme stylesheet
 
 To include our stylesheet located in `dist/css/main.min.css`, add this line inside the `resources` function:
 
@@ -303,7 +303,7 @@ To include our stylesheet located in `dist/css/main.min.css`, add this line insi
 wp_enqueue_style( 'theme-style', get_template_directory_uri() . '/dist/css/main.min.css' );
 ```
 
-#### Final result
+### Final result
 
 If you added all of the lines above, your `resources` function should look like this:
 
@@ -327,7 +327,7 @@ function resources() {
 add_action('wp_enqueue_scripts', 'resources');
 ```
 
-### Images
+## Images
 If you would like to include an image to a WordPress template file, you can do so like this
 
 ```
@@ -345,4 +345,3 @@ If you would like to include an image in you SCSS, you do it like this
 ```
 
 Explanation: even though you are writing SCSS from `prototype/_sass/`, the compiled CSS will be located at `dist/css/`. Since both the images and css are in `dist/`, you just go 1 directory up, and then into `images/`.
-
